@@ -134,7 +134,7 @@ async def not_joined(client: Client, message: Message):
         [
             InlineKeyboardButton(
                 text="Refresh",
-                url=f"https://t.me/{client.username}?start={message.command[1]}"
+                url=f"https://t.me/{client.username}?start={message.command[1]}" if len(message.command) > 1 else None
             )
         ]
     ]
@@ -162,7 +162,6 @@ async def not_joined(client: Client, message: Message):
         quote=True,
         disable_web_page_preview=True
     )
-
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
