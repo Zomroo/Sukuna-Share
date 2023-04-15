@@ -134,7 +134,7 @@ async def not_joined(client: Client, message: Message):
         [
             InlineKeyboardButton(
                 text="Refresh",
-                url=f"https://t.me/{client.username}"
+                url=f"https://t.me/{client.username}?start={message.command[1]}"
             )
         ]
     ]
