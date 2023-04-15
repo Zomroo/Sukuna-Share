@@ -120,6 +120,9 @@ REPLY_ERROR = """<code>Use this command as a replay to any telegram message with
     
 @Bot.on_message(filters.command('start') & filters.private)
 async def not_joined(client: Client, message: Message):
+    if len(message.command) < 2:
+        # No command argument provided, handle the error
+        return await message.reply_text("Please provide a valid command argument.")
     buttons = [
         [
             InlineKeyboardButton(
@@ -134,7 +137,7 @@ async def not_joined(client: Client, message: Message):
         [
             InlineKeyboardButton(
                 text="Refresh",
-                url=f"https://t.me/{client.username}?start={message.command[1]}" if len(message.command) > 1 else None
+                url=f"https://t.me/{client.username}?start={message.command[1]}"
             )
         ]
     ]
@@ -162,6 +165,7 @@ async def not_joined(client: Client, message: Message):
         quote=True,
         disable_web_page_preview=True
     )
+
 
 @Bot.on_message(filters.command('users') & filters.private & filters.user(ADMINS))
 async def get_users(client: Bot, message: Message):
